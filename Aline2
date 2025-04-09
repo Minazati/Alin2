@@ -1,0 +1,40 @@
+#Mengimpor library NumPy
+import numpy as np
+
+#Mendefinisikan matriks P and Q
+P = np.array([[11, 12, 13], 
+              [17, 18, 19], 
+              [23, 24, 25]])
+
+Q = np.array([[20, 21, 22], 
+              [26, 27, 28], 
+              [32, 33, 34]])
+
+print('Matriks P:\n', P)
+print('Matriks Q:\n', Q)
+
+#1. Operasi Penjumlahan Matriks
+jumlah = P + Q
+print('\n1. Hasil Penjumlahan (P + Q):\n', jumlah)
+
+#2. Operasi Pengurangan Matriks
+kurang = P - Q
+print('\n2. Hasil Pengurangan (P - Q):\n', kurang)
+
+#3. Operasi Perkalian Dot
+kali_dot = np.dot(P, Q)
+print('\n3. Hasil Perkalian Dot( P @ Q):\n', kali_dot)
+
+#4. Operasi Perkalian Cross
+vektor_P = P[0]
+vektor_Q = Q[0]
+kali_cross = np.cross(vektor_P, vektor_Q)
+print('\n4. Hasil Perkalian Cross Antara Baris Pertama P dan Q:\n', kali_cross)
+
+#5. Bentuk Transpose Matriks P
+transpose_P = P.T
+print('\n5. Transpose dari matriks P(P.T):\n', transpose_P)
+
+#6. Bentuk Transpose Matriks Q
+transpose_Q = Q.T
+print('\n6. Transpose dari matriks Q(Q.T):\n', transpose_Q)
