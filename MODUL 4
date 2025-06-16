@@ -1,0 +1,206 @@
+#KODE SPLDV 1
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+A = np.array([[2, 3],
+              [1, -1]])
+
+B = np.array([7, 1])
+
+solusi = np.linalg.solve(A, B)
+x_solusi = solusi[0]
+y_solusi = solusi[1]
+
+print(f"Solusi untuk x adalah: {x_solusi}")
+print(f"Solusi untuk y adalah: {y_solusi}")
+
+x_vals = np.linspace(-5, 10, 400)
+
+y_eq1 = (7 - 2 * x_vals) / 3
+
+y_eq2 = x_vals - 1
+
+plt.figure(figsize=(8, 6))
+plt.plot(x_vals, y_eq1, label='2x + 3y = 7', color='blue')
+plt.plot(x_vals, y_eq2, label='x - y = 1', color='red')
+
+plt.plot(x_solusi, y_solusi, 'o', color='green', markersize=8, label=f'Titik Potong ({x_solusi:.2f}, {y_solusi:.2f})')
+
+plt.title('Grafik Sistem Persamaan Linear')
+plt.xlabel('Nilai x')
+plt.ylabel('Nilai y')
+plt.grid(True)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.legend()
+plt.show()
+
+
+#KODE SPLDV 2
+
+from sympy import symbols, Eq, solve, latex
+from sympy.plotting import plot
+import matplotlib.pyplot as plt
+import numpy as np
+
+x, y = symbols('x y')
+
+persamaan1 = Eq(2*x + 3*y, 7)
+persamaan2 = Eq(x - y, 1)
+
+print("Persamaan 1:", persamaan1)
+print("Persamaan 2:", persamaan2)
+
+solusi_sympy = solve((persamaan1, persamaan2), (x, y))
+
+print(f"\nSolusi menggunakan SymPy: {solusi_sympy}")
+x_solusi = solusi_sympy[x]
+y_solusi = solusi_sympy[y]
+
+print(f"Solusi untuk x adalah: {x_solusi}")
+print(f"Solusi untuk y adalah: {y_solusi}")
+
+x_vals = np.linspace(-5, 10, 400)
+
+y_eq1_vals = (7 - 2 * x_vals) / 3
+y_eq2_vals = x_vals - 1
+
+plt.figure(figsize=(8, 6))
+
+plt.plot(x_vals, y_eq1_vals, label=f'${latex(persamaan1)}$', color='blue')
+plt.plot(x_vals, y_eq2_vals, label=f'${latex(persamaan2)}$', color='red')
+
+plt.plot(float(x_solusi), float(y_solusi), 'o', color='green', markersize=8, label=f'Titik Potong ({float(x_solusi):.2f}, {float(y_solusi):.2f})')
+
+plt.title('Grafik Sistem Persamaan Linear (dengan SymPy)')
+plt.xlabel('Nilai x')
+plt.ylabel('Nilai y')
+plt.grid(True)
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.legend()
+plt.show()
+
+
+#KODE SPLTV 1
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+
+A = np.array([[1, 2, 1],
+              [3, -1, 2],
+              [-2, 3, -1]])
+
+B = np.array([10, 5, -9])
+
+solusi = np.linalg.solve(A, B)
+x_solusi, y_solusi, z_solusi = solusi[0], solusi[1], solusi[2]
+
+print(f"Solusi untuk x adalah: {x_solusi:.2f}")
+print(f"Solusi untuk y adalah: {y_solusi:.2f}")
+print(f"Solusi untuk z adalah: {z_solusi:.2f}")
+
+
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+x_vals = np.linspace(-5, 5, 10)
+y_vals = np.linspace(-5, 5, 10)
+X, Y = np.meshgrid(x_vals, y_vals)
+
+Z1 = 10 - X - 2 * Y
+
+Z2 = (5 - 3 * X + Y) / 2
+
+Z3 = -2 * X + 3 * Y + 9
+
+ax.plot_surface(X, Y, Z1, alpha=0.5, rstride=100, cstride=100, color='blue', label='x + 2y + z = 10')
+ax.plot_surface(X, Y, Z2, alpha=0.5, rstride=100, cstride=100, color='red', label='3x - y + 2z = 5')
+ax.plot_surface(X, Y, Z3, alpha=0.5, rstride=100, cstride=100, color='green', label='-2x + 3y - z = -9')
+
+ax.scatter(x_solusi, y_solusi, z_solusi, color='black', s=100, label=f'Titik Potong ({x_solusi:.2f}, {y_solusi:.2f}, {z_solusi:.2f})')
+
+ax.set_xlabel('X-axis')
+ax.set_ylabel('Y-axis')
+ax.set_zlabel('Z-axis')
+ax.set_title('Grafik Sistem Persamaan Linear 3 Variabel (Bidang)')
+
+from matplotlib.lines import Line2D
+custom_lines = [Line2D([0], [0], color='blue', lw=4, alpha=0.5),
+                Line2D([0], [0], color='red', lw=4, alpha=0.5),
+                Line2D([0], [0], color='green', lw=4, alpha=0.5),
+                Line2D([0], [0], color='black', marker='o', markersize=8, linestyle='None')]
+ax.legend(custom_lines, ['x + 2y + z = 10', '3x - y + 2z = 5', '-2x + 3y - z = -9', f'Solusi ({x_solusi:.2f}, {y_solusi:.2f}, {z_solusi:.2f})'])
+
+
+plt.show()
+
+
+#KODE SPLTV 2
+
+from sympy import symbols, Eq, solve
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+
+x, y, z = symbols('x y z')
+
+persamaan1 = Eq(x + 2*y + z, 10)
+persamaan2 = Eq(3*x - y + 2*z, 5)
+persamaan3 = Eq(-2*x + 3*y - z, -9)
+
+print("Persamaan 1:", persamaan1)
+print("Persamaan 2:", persamaan2)
+print("Persamaan 3:", persamaan3)
+
+solusi_sympy = solve((persamaan1, persamaan2, persamaan3), (x, y, z))
+
+print(f"\nSolusi menggunakan SymPy: {solusi_sympy}")
+
+if isinstance(solusi_sympy, dict):
+    x_solusi = float(solusi_sympy[x])
+    y_solusi = float(solusi_sympy[y])
+    z_solusi = float(solusi_sympy[z])
+
+    print(f"Solusi untuk x adalah: {x_solusi:.2f}")
+    print(f"Solusi untuk y adalah: {y_solusi:.2f}")
+    print(f"Solusi untuk z adalah: {z_solusi:.2f}")
+
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(111, projection='3d')
+
+    x_vals = np.linspace(x_solusi - 5, x_solusi + 5, 10)
+    y_vals = np.linspace(y_solusi - 5, y_solusi + 5, 10)
+    X, Y = np.meshgrid(x_vals, y_vals)
+
+    Z1 = 10 - X - 2 * Y
+
+    Z2 = (5 - 3 * X + Y) / 2
+
+    Z3 = -2 * X + 3 * Y + 9
+
+    ax.plot_surface(X, Y, Z1, alpha=0.5, rstride=100, cstride=100, color='blue', label='Bidang 1')
+    ax.plot_surface(X, Y, Z2, alpha=0.5, rstride=100, cstride=100, color='red', label='Bidang 2')
+    ax.plot_surface(X, Y, Z3, alpha=0.5, rstride=100, cstride=100, color='green', label='Bidang 3')
+
+    ax.scatter(x_solusi, y_solusi, z_solusi, color='black', s=100, label=f'Solusi ({x_solusi:.2f}, {y_solusi:.2f}, {z_solusi:.2f})')
+
+    ax.set_xlabel('X-axis')
+    ax.set_ylabel('Y-axis')
+    ax.set_zlabel('Z-axis')
+    ax.set_title('Grafik Sistem Persamaan Linear 3 Variabel (dengan SymPy)')
+
+    from matplotlib.lines import Line2D
+    custom_lines = [Line2D([0], [0], color='blue', lw=4, alpha=0.5),
+                    Line2D([0], [0], color='red', lw=4, alpha=0.5),
+                    Line2D([0], [0], color='green', lw=4, alpha=0.5),
+                    Line2D([0], [0], color='black', marker='o', markersize=8, linestyle='None')]
+    ax.legend(custom_lines, [f'${persamaan1}$', f'${persamaan2}$', f'${persamaan3}$', f'Solusi ({x_solusi:.2f}, {y_solusi:.2f}, {z_solusi:.2f})'])
+
+    plt.show()
+else:
+    print("SymPy tidak menemukan solusi untuk sistem persamaan ini.")
